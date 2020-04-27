@@ -31,6 +31,13 @@ def build_crime_url_dict():
 		crime_dict[a.string.split(" ")[0]]=base_url+a.attrs['href']
 	return crime_dict
 
+def date_convertor(d_str):
+	m,d,y = d_str.split('/')
+	y = '20'+y[:-1]
+	m = y+'-'+m
+	d = m+'-'+d
+	return y,m,d
+
 def get_crime_detail(crime_dict):
 	crimes = []
 	crime_type = set()
@@ -55,7 +62,9 @@ def get_crime_detail(crime_dict):
 				crimes[-1]['type']=items[1].string
 				crime_type.add(items[1].string)
 				datetime = items[2].string.split(" ")
-				crimes[-1]['date'],crimes[-1]['time'] = datetime[0],datetime[1]
+				crimes[-1]['date'] = datetime[0]
+				crimes[-1]['year'],crimes[-1]['month'],crimes[-1]['day'] = date_convertor(datetime[0])
+				crimes[-1]['hour'] = datetime[1].split(":")[0]
 				crimes[-1]['address']=items[3].string
 				crimes[-1]['link']="https://spotcrime.com"+case.select('a')[0].attrs['href']
 			except TypeError as e:
@@ -85,8 +94,8 @@ def create_connection(db_file):
 	return conn
 
 def create_crime_case(conn,case):
-	sql = "INSERT INTO Crimes(Id,Type,Dates,ExactTime,Address,Link)\
-			VALUES(?,?,?,?,?,?)"
+	sql = "INSERT INTO Crimes(Id,Type,Dates,Year,Month,Day,Hour,Address,Link)\
+			VALUES(?,?,?,?,?,?,?,?,?)"
 	cur = conn.cursor()
 	cur.execute(sql,case)
 
@@ -107,7 +116,7 @@ def main():
 	conn = create_connection(db_file)
 	with conn:
 		for crime in crimes:
-			case = (crime['index'],crime['type'],crime['date'],crime['time'],crime['address'],crime['link'])
+			case = (crime['index'],crime['type'],crime['date'],crime['year'],crime['month'],crime['day'],crime['hour'],crime['address'],crime['link'])
 			create_crime_case(conn,case)
 		for date in count_crime.keys():
 			stats = count_crime[date]
