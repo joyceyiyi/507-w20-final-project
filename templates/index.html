@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Crime data in Ann Arbor</title>
+</head>
+<body>
+	<h1>Data Summray from 2019-09-19 to 2020-04-25</h1>
+	{{plot_div | safe}}
+	<form action="/handle_form" method="POST">
+	<h2>Choose to see detailed visuazlizations of crime data in Ann Arbor</h2>
+	<p>
+		Do you want to monthly data or hourly data?<br/>
+		<select name="type">
+			<option value="monthly">Monthly</option>
+			<option value="hourly">Hourly</option>
+		</select>
+	</p>
+	<p>
+		Select start date of the data<br/>
+		<input type="date" name="start" value="2019-09-19" min="2019-09-19" max="2020-04-01">
+	</p>
+	<p>
+		Select end date of the data<br/>
+		<input type="date" name="end" value="2020-04-25" min="2019-09-30" max="2020-04-25">
+	</p>
+	<p>
+		Do you want to see line chart or bar chart?<br/>
+		<select name="chart">
+			<option value="line">Line Chart</option>
+			<option value="bar">Bar Chart</option>
+		</select>
+	</p>
+	<input type="submit" value="Submit"/>
+	</form>
+</body>
+</html>
