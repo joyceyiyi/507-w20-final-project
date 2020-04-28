@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	{{plot_div | safe}}
+	<form action="/details" method="POST">
+	<h2>Select categories to see details</h1>
+	<p> start date: 
+		<select name='start'>
+			<option value={{start}}>{{start}}</option>
+		</select>
+	</p>
+	<p> end date: 
+		<select name='end'>
+			<option value={{end}}>{{end}}</option>
+		</select>
+	</p>
+	<p>
+		Chart type:
+		{% if line %}
+			<select name='chart'>
+				<option value='line'>Line</option>
+			</select>
+		{% endif %}
+		{% if bar %}
+			<select name='chart'>
+				<option value='bar'>Bar</option>
+			</select>
+		{% endif %}
+	</p>
+	<p>
+		Which categories do you want to check?<br/>
+		<input type="checkbox" name="Vandalism">Vandalism<br/>
+		<input type="checkbox" name="Assault">Assault<br/>
+		<input type="checkbox" name="Burglary">Burglary<br/>
+		<input type="checkbox" name="Robbery">Robbery<br/>
+		<input type="checkbox" name="Theft">Theft<br/>
+		<input type="checkbox" name="Other">Other<br/>
+		<input type="checkbox" name="Arrest">Arrest<br/>
+		<input type="checkbox" name="Shooting">Shooting<br/>
+	</p>
+	<input type="submit" value="Submit"/><br/>
+	<a href="/">Back</a>
+</body>
+</html>
