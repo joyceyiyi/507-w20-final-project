@@ -1,5 +1,4 @@
 # 507-w20-final-project
-Final Project for SI507
 This program aggregates crime data from https://spotcrime.com/mi/ann+arbor/daily and allows a user to select one or more crime types to see a graph of crime frequency by month. Data is displayed using HTML within a Flask App.
 
 create_table.py is used to create tables in sql.
