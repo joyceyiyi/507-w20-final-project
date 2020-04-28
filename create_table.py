@@ -1,5 +1,7 @@
 import sqlite3
 
+f = open('crime.db','a')
+f.close()
 conn = sqlite3.connect('crime.db')
 cursor = conn.cursor()
 crime = """CREATE TABLE "Crimes" (\
